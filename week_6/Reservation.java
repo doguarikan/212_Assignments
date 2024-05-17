@@ -81,74 +81,37 @@ public class Reservation extends Services implements Calculable{
 		System.out.printf("\nReservation Month: ");
 		reservationMonth = scanners.nextLine();
 		
-		while(true) {
-			System.out.printf("\nReservation Start: ");
-			try {
-				reservationStart = scanners.nextInt();
-				scanners.nextLine();
-				break;
-			}catch(InputMismatchException e) {
-				System.out.printf("Reservation Start must be a numeric value!");
-				scanners.nextLine();
-			}
+		System.out.printf("\nReservation Start: ");
+		reservationStart = scanners.nextInt();
+		scanners.nextLine();
+		
+		System.out.printf("\nReservation End: ");
+		reservationEnd = scanners.nextInt();
+		scanners.nextLine();
+		
+		System.out.printf("\nRoom Type: ");
+		roomType = RoomType.valueOf(scanners.nextLine());
+		
+		if(roomType == RoomType.Single) {
+			room = new Single();
+		}
+		else if(roomType == RoomType.Double) {
+			room = new Double();
+		}
+		else if(roomType == RoomType.Club) {
+			room = new Club();
+		}
+		else if(roomType == RoomType.Family) {
+			room = new Family();
+		}
+		else if(roomType == RoomType.Familywithview) {
+			room = new FamilyWithView();
+		}
+		else if(roomType == RoomType.Suite) {
+			room = new Suite();
 		}
 		
-		while(true) {
-			System.out.printf("\nReservation End: ");
-			try {
-				reservationEnd = scanners.nextInt();
-				scanners.nextLine();
-				break;
-			}catch(InputMismatchException e) {
-				System.out.printf("Reservation End must be a numeric value!");
-				scanners.nextLine();
-			}
-		}
-		
-		
-		while(true) {
-			System.out.printf("\nRoom Type: ");
-			try {
-				roomtyp = scanners.nextLine();
-				roomchecker(roomtyp);
-				roomType = RoomType.valueOf(roomtyp);
-			
-				if(roomType == RoomType.Single) {
-					room = new Single();
-					break;
-				}
-				else if(roomType == RoomType.Double) {
-					room = new Double();
-					break;
-				}
-				else if(roomType == RoomType.Club) {
-					room = new Club();
-					break;
-				}
-				else if(roomType == RoomType.Family) {
-					room = new Family();
-					break;
-				}
-				else if(roomType == RoomType.Familywithview) {
-					room = new FamilyWithView();
-					break;
-				}
-				else if(roomType == RoomType.Suite) {
-					room = new Suite();
-					break;
-				}
-			}catch(RoomTypeException a) {
-				System.out.println(a);
-			}
-		}
 		System.out.printf("\nReservation ID : %d is created!\n", Reservation.totalNumOfReservations);
-		this.CustomerID = Reservation.totalNumOfReservations;
-	}
-	public static void roomchecker(String room) throws RoomTypeException {
-		if(!RoomType.Single.name().equals(room) && !RoomType.Double.name().equals(room) && !RoomType.Club.name().equals(room) && !RoomType.Family.name().equals(room) && 
-				!RoomType.Familywithview.name().equals(room) && !RoomType.Suite.name().equals(room)) {
-			throw new RoomTypeException("Room Type is not valid!");
-		}
 	}
 	
 	////////////////////////////////////////////////////////////////////
@@ -218,49 +181,27 @@ public class Reservation extends Services implements Calculable{
 		int days;
 		int clothes;
 		System.out.printf("Please select one of the extra services from below: \n");
-		System.out.printf("1. Laundry Service \n2. Spa Service \n");
+		System.out.printf("1. Laundry Service \n 2. Spa Service \n");
 		extra_selection = scanners.nextInt();
 		scanners.nextLine();
 		
 		if(extra_selection == 1) {
-			System.out.printf("Type the reservation ID to credit this service: \n");
+			System.out.printf("Type the reservation ID to credit this service: ");
 			id = scanners.nextInt();
 			
-			System.out.printf("How many pieces of clothing?\n");
-			while(true) {
-				try {
-					temp = scanners.nextInt();
-					scanners.nextLine();
-					break;
-				}catch(InputMismatchException e) {
-					System.out.printf("Clothing count must be a numeric value!\n");
-					scanners.nextLine();
-					System.out.printf("How many pieces of clothing?\n");
-				}
-			}
-			clothes = temp;
-			Calculable.calculablelist.add(new Laundry(id,clothes,20));
+			System.out.printf("How many pieces of clothing?");
+			clothes = scanners.nextInt();
+
 			serviceslist.add(new Laundry(id,clothes,20));
 		}
 		
 		else if(extra_selection == 2) {
-			System.out.printf("Type the reservation ID to credit this service: \n");
+			System.out.printf("Type the reservation ID to credit this service: ");
 			id = scanners.nextInt();
 			
-			System.out.printf("How many days?\n");
-			while(true) {
-				try {
-					temp = scanners.nextInt();
-					scanners.nextLine();
-					break;
-				}catch(InputMismatchException e) {
-					System.out.printf("Day count must be a numeric value!\n");
-					scanners.nextLine();
-					System.out.printf("How many days?\n");
-				}
-			}
-			days = temp;
-			Calculable.calculablelist.add(new Spa(id,days,100));
+			System.out.printf("How many days?");
+			days = scanners.nextInt();
+			
 			serviceslist.add(new Spa(id,days,100));
 		}
 		
