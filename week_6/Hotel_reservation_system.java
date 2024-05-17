@@ -24,22 +24,10 @@ public class Hotel_reservation_system {
 			prints();
 			
 	////////////////////////////////////////////////////////////////////
-			while(true) {
-				try {
-					selection = scanner.nextInt();
-					scanner.nextLine();
-					if (selection >= 1 && selection <= 12) {
-	                    break;
-	                } else {
-	                    System.out.println("You entered an invalid menu option. Enter again.\n\n");
-	                    prints();
-	                }
-				}catch(InputMismatchException e) {
-					System.out.printf("You entered an invalid menu option. Enter again.\n\n");
-					scanner.nextLine();
-					prints();
-				}
-				
+
+			if (scanner.hasNextInt()) {
+				selection = scanner.nextInt();
+				scanner.nextLine();
 			}
 			
 			if(selection == MenuOptions.Room_type.choice)
